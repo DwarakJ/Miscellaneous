@@ -39,16 +39,16 @@ class lane:
 
 for each_file in data:
     path_ip = re.split('_|-|/', each_file)
-    path = each_file
     case = path_ip[0]
     samplelbl = path_ip[1]
-    sample = path_ip[0]+'-'+path_ip[1]
+    sample = case+'-'+samplelbl
     datatype = path_ip[2]
     barcode = path_ip[3]
     marker_forward = path_ip[7]
     marker_reverse = path_ip[8]
     lane_num = int(re.findall('[1-9]', path_ip[9])[0])
-    lane_data = lane(path, lane_num, marker_forward, marker_reverse, barcode)
+    lane_data = lane(each_file, lane_num, marker_forward,
+                     marker_reverse, barcode)
     load_data = fastq_file(case, samplelbl, sample, datatype, lane_data)
 
     opjson = jsons.dump(load_data)
